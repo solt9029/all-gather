@@ -10,10 +10,41 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_04_070144) do
+ActiveRecord::Schema.define(version: 2020_10_04_072550) do
+
+  create_table "members", force: :cascade do |t|
+    t.integer "schedule_id", null: false
+    t.string "name", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index "\"schedule\", \"name\"", name: "index_members_on_schedule_and_name", unique: true
+    t.index ["schedule_id"], name: "index_members_on_schedule_id"
+  end
+
+  create_table "schedule_date_members", force: :cascade do |t|
+    t.integer "schedule_date_id", null: false
+    t.integer "member_id", null: false
+    t.date "date", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index "\"schedule_date\", \"member\", \"date\"", name: "index_schedule_date_members", unique: true
+    t.index ["member_id"], name: "index_schedule_date_members_on_member_id"
+    t.index ["schedule_date_id"], name: "index_schedule_date_members_on_schedule_date_id"
+  end
+
+  create_table "schedule_dates", force: :cascade do |t|
+    t.integer "schedule_id", null: false
+    t.date "date", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index "\"schedule\", \"date\"", name: "index_schedule_dates_on_schedule_and_date", unique: true
+    t.index ["schedule_id"], name: "index_schedule_dates_on_schedule_id"
+  end
 
   create_table "schedules", force: :cascade do |t|
-    t.string "title"
+    t.string "title", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
 end
