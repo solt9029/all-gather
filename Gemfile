@@ -60,3 +60,6 @@ group :production do
 end
 
 gem "haml-rails", "~> 2.0"
+gem 'erb2haml'
+gem 'bootstrap', '~> 4.1.1'
+gem 'jquery-rails'
